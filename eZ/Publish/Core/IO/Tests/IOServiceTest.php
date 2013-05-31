@@ -111,10 +111,11 @@ class IOServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreateBinaryFile( BinaryFileCreateStruct $createStruct )
     {
         $createStruct->id = "my/path.php";
-        $uri = $this->getPrefixedUri( $createStruct->id );
+        $id = $this->getPrefixedUri( $createStruct->id );
 
         $spiBinaryFile = new SPIBinaryFile;
-        $spiBinaryFile->uri = $uri;
+        $spiBinaryFile->id = $id;
+        $spiBinaryFile->uri = $id;
         $spiBinaryFile->size = filesize( __FILE__ );
         $spiBinaryFile->mimeType = 'text/x-php';
 
@@ -125,7 +126,7 @@ class IOServiceTest extends \PHPUnit_Framework_TestCase
 
         $binaryFile = $this->getIOService()->createBinaryFile( $createStruct );
         self::assertInstanceOf( 'eZ\\Publish\\Core\\IO\Values\\BinaryFile', $binaryFile );
-        self::assertEquals( $createStruct->id, $binaryFile->uri );
+        self::assertEquals( $createStruct->id, $binaryFile->id );
         self::assertEquals( $createStruct->mimeType, $binaryFile->mimeType );
         self::assertEquals( $createStruct->size, $binaryFile->size );
 
@@ -137,21 +138,22 @@ class IOServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadBinaryFile()
     {
-        $uri = "my/path.png";
-        $spiUri = $this->getPrefixedUri( $uri );
+        $id = "my/path.png";
+        $spiId = $this->getPrefixedUri( $id );
         $spiBinaryFile = new SPIBinaryFile;
-        $spiBinaryFile->uri = $spiUri;
+        $spiBinaryFile->id = $spiId;
         $spiBinaryFile->size = 12345;
         $spiBinaryFile->mimeType = 'application/any';
+        $spiBinaryFile->uri = $spiId;
 
         $this->getIOHandlerMock()
             ->expects( $this->once() )
             ->method( 'load' )
-            ->with( $spiUri )
+            ->with( $spiId )
             ->will( $this->returnValue( $spiBinaryFile ) );
 
-        $binaryFile = $this->getIOService()->loadBinaryFile( $uri );
-        self::assertEquals( $uri, $binaryFile->uri );
+        $binaryFile = $this->getIOService()->loadBinaryFile( $id );
+        self::assertEquals( $id, $binaryFile->id );
 
         return $binaryFile;
     }
@@ -176,7 +178,7 @@ class IOServiceTest extends \PHPUnit_Framework_TestCase
         $this->getIOHandlerMock()
             ->expects( $this->once() )
             ->method( 'getFileContents' )
-            ->with( $this->equalTo( $this->getPrefixedUri( $binaryFile->uri ) ) )
+            ->with( $this->equalTo( $this->getPrefixedUri( $binaryFile->id ) ) )
             ->will( $this->returnValue( $expectedContents ) );
 
         self::assertEquals(
@@ -194,7 +196,7 @@ class IOServiceTest extends \PHPUnit_Framework_TestCase
         $this->getIOHandlerMock()
             ->expects( $this->once() )
             ->method( 'delete' )
-            ->with( $this->equalTo( $this->getPrefixedUri( $binaryFile->uri ) ) );
+            ->with( $this->equalTo( $this->getPrefixedUri( $binaryFile->id ) ) );
 
         $this->getIOService()->deleteBinaryFile( $binaryFile );
     }
@@ -208,7 +210,7 @@ class IOServiceTest extends \PHPUnit_Framework_TestCase
     {
         $binaryFile = new BinaryFile(
             array(
-                'uri' => 'some/uri.png',
+                'id' => 'some/uri.png',
             )
         );
 
