@@ -72,7 +72,7 @@ abstract class Type extends FieldType
         // construction only from path
         if ( is_string( $inputValue ) )
         {
-            $inputValue = array( 'path' => $inputValue );
+            $inputValue = array( 'id' => $inputValue );
         }
 
         // default construction from array
@@ -91,12 +91,12 @@ abstract class Type extends FieldType
         }
 
         // Required parameter $path
-        if ( !isset( $inputValue->path ) || !file_exists( $inputValue->path ) )
+        if ( !isset( $inputValue->id ) || !file_exists( $inputValue->id ) )
         {
             throw new InvalidArgumentValue(
-                '$inputValue->path',
+                '$inputValue->id',
                 'Path to an existing file',
-                $inputValue->path
+                $inputValue->id
             );
         }
 
@@ -136,7 +136,8 @@ abstract class Type extends FieldType
     {
         if ( !isset( $value->fileName ) )
         {
-            $value->fileName = basename( $value->path );
+            // @todo this may not always work...
+            $value->fileName = basename( $value->id );
         }
     }
 
@@ -183,9 +184,9 @@ abstract class Type extends FieldType
         }
 
         return array(
+            'id' => $value->id,
             'fileName' => $value->fileName,
             'fileSize' => $value->fileSize,
-            'path' => $value->path,
             'mimeType' => $value->mimeType,
             'uri' => $value->uri,
         );
@@ -246,8 +247,8 @@ abstract class Type extends FieldType
         // there might be more data in the persistence value than needed here
         $result = $this->fromHash(
             array(
-                'path' => ( isset( $fieldValue->externalData['path'] )
-                    ? $fieldValue->externalData['path']
+                'id' => ( isset( $fieldValue->externalData['id'] )
+                    ? $fieldValue->externalData['id']
                     : null ),
                 'fileName' => ( isset( $fieldValue->externalData['fileName'] )
                     ? $fieldValue->externalData['fileName']
@@ -283,6 +284,8 @@ abstract class Type extends FieldType
         {
             switch ( $validatorIdentifier )
             {
+                // @todo There is a risk if we rely on a user built Value, since the FileSize
+                // property can be set manually, making this validation pointless
                 case 'FileSizeValidator':
                     if ( !isset( $parameters['maxFileSize'] ) || $parameters['maxFileSize'] == false )
                     {

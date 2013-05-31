@@ -165,7 +165,7 @@ class ImageTest extends FieldTypeTest
             array(
                 new ImageValue(
                     array(
-                        'path' => 'non/existent/path',
+                        'id' => 'non/existent/path',
                     )
                 ),
                 'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
@@ -173,7 +173,7 @@ class ImageTest extends FieldTypeTest
             array(
                 new ImageValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => array()
                     )
                 ),
@@ -182,7 +182,7 @@ class ImageTest extends FieldTypeTest
             array(
                 new ImageValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => 'ImageTest.php',
                         'fileSize' => 'truebar'
                     )
@@ -192,7 +192,7 @@ class ImageTest extends FieldTypeTest
             array(
                 new ImageValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => 'ImageTest.php',
                         'fileSize' => 23,
                         'alternativeText' => array()
@@ -219,7 +219,7 @@ class ImageTest extends FieldTypeTest
      *      array(
      *          __FILE__,
      *          new BinaryFileValue( array(
-     *              'path' => __FILE__,
+     *              'id' => __FILE__,
      *              'fileName' => basename( __FILE__ ),
      *              'fileSize' => filesize( __FILE__ ),
      *              'downloadCount' => 0,
@@ -243,26 +243,29 @@ class ImageTest extends FieldTypeTest
                 $this->getImageInputPath(),
                 new ImageValue(
                     array(
-                        'path' => $this->getImageInputPath(),
+                        'id' => $this->getImageInputPath(),
                         'fileName' => basename( $this->getImageInputPath() ),
                         'fileSize' => filesize( $this->getImageInputPath() ),
                         'alternativeText' => null,
+                        'uri' => ''
                     )
                 ),
             ),
             array(
                 array(
-                    'path' => $this->getImageInputPath(),
+                    'id' => $this->getImageInputPath(),
                     'fileName' => 'Sindelfingen-Squirrels.jpg',
                     'fileSize' => 23,
                     'alternativeText' => 'This is so Sindelfingen!',
+                    'uri' => 'http://' . $this->getImageInputPath(),
                 ),
                 new ImageValue(
                     array(
-                        'path' => $this->getImageInputPath(),
+                        'id' => $this->getImageInputPath(),
                         'fileName' => 'Sindelfingen-Squirrels.jpg',
                         'fileSize' => 23,
                         'alternativeText' => 'This is so Sindelfingen!',
+                        'uri' => 'http://' . $this->getImageInputPath(),
                     )
                 ),
             ),
@@ -314,19 +317,21 @@ class ImageTest extends FieldTypeTest
             array(
                 new ImageValue(
                     array(
-                        'path' => $this->getImageInputPath(),
+                        'id' => $this->getImageInputPath(),
                         'fileName' => 'Sindelfingen-Squirrels.jpg',
                         'fileSize' => 23,
                         'alternativeText' => 'This is so Sindelfingen!',
-                        'imageId' => '123-12345'
+                        'imageId' => '123-12345',
+                        'uri' => 'http://' . $this->getImageInputPath(),
                     )
                 ),
                 array(
-                    'path' => $this->getImageInputPath(),
+                    'id' => $this->getImageInputPath(),
                     'fileName' => 'Sindelfingen-Squirrels.jpg',
                     'fileSize' => 23,
                     'alternativeText' => 'This is so Sindelfingen!',
-                    'imageId' => '123-12345'
+                    'imageId' => '123-12345',
+                    'uri' => 'http://' . $this->getImageInputPath(),
                 ),
             ),
         );
@@ -376,17 +381,19 @@ class ImageTest extends FieldTypeTest
             ),
             array(
                 array(
-                    'path' => $this->getImageInputPath(),
+                    'id' => $this->getImageInputPath(),
                     'fileName' => 'Sindelfingen-Squirrels.jpg',
                     'fileSize' => 23,
                     'alternativeText' => 'This is so Sindelfingen!',
+                    'uri' => 'http://' . $this->getImageInputPath(),
                 ),
                 new ImageValue(
                     array(
-                        'path' => $this->getImageInputPath(),
+                        'id' => $this->getImageInputPath(),
                         'fileName' => 'Sindelfingen-Squirrels.jpg',
                         'fileSize' => 23,
                         'alternativeText' => 'This is so Sindelfingen!',
+                        'uri' => 'http://' . $this->getImageInputPath(),
                     )
                 ),
             ),

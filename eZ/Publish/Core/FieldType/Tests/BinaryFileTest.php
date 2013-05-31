@@ -51,7 +51,7 @@ class BinaryFileTest extends BinaryBaseTest
                 'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
             ),
             array(
-                new BinaryFileValue( array( 'path' => '/foo/bar' ) ),
+                new BinaryFileValue( array( 'id' => '/foo/bar' ) ),
                 'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
             ),
         );
@@ -69,7 +69,7 @@ class BinaryFileTest extends BinaryBaseTest
                 __FILE__,
                 new BinaryFileValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => basename( __FILE__ ),
                         'fileSize' => null,
                         'downloadCount' => 0,
@@ -80,10 +80,10 @@ class BinaryFileTest extends BinaryBaseTest
                 array( /* 'getMimeType' => 'text/plain' */ )
             ),
             array(
-                array( 'path' => __FILE__ ),
+                array( 'id' => __FILE__ ),
                 new BinaryFileValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => basename( __FILE__ ),
                         'fileSize' => null,
                         'downloadCount' => 0,
@@ -95,12 +95,12 @@ class BinaryFileTest extends BinaryBaseTest
             ),
             array(
                 array(
-                    'path' => __FILE__,
+                    'id' => __FILE__,
                     'fileSize' => 23,
                 ),
                 new BinaryFileValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => basename( __FILE__ ),
                         'fileSize' => 23,
                         'downloadCount' => 0,
@@ -112,12 +112,12 @@ class BinaryFileTest extends BinaryBaseTest
             ),
             array(
                 array(
-                    'path' => __FILE__,
+                    'id' => __FILE__,
                     'downloadCount' => 42,
                 ),
                 new BinaryFileValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => basename( __FILE__ ),
                         'fileSize' => null,
                         'downloadCount' => 42,
@@ -129,12 +129,12 @@ class BinaryFileTest extends BinaryBaseTest
             ),
             array(
                 array(
-                    'path' => __FILE__,
+                    'id' => __FILE__,
                     'mimeType' => 'application/text+php',
                 ),
                 new BinaryFileValue(
                     array(
-                        'path' => __FILE__,
+                        'id' => __FILE__,
                         'fileName' => basename( __FILE__ ),
                         'fileSize' => null,
                         'downloadCount' => 0,
@@ -161,14 +161,14 @@ class BinaryFileTest extends BinaryBaseTest
      *      ),
      *      array(
      *          new BinaryFileValue( array(
-     *              'path' => 'some/file/here',
+     *              'id' => 'some/file/here',
      *              'fileName' => 'sindelfingen.jpg',
      *              'fileSize' => 2342,
      *              'downloadCount' => 0,
      *              'mimeType' => 'image/jpeg',
      *          ) ),
      *          array(
-     *              'path' => 'some/file/here',
+     *              'id' => 'some/file/here',
      *              'fileName' => 'sindelfingen.jpg',
      *              'fileSize' => 2342,
      *              'downloadCount' => 0,
@@ -191,19 +191,21 @@ class BinaryFileTest extends BinaryBaseTest
             array(
                 new BinaryFileValue(
                     array(
-                        'path' => 'some/file/here',
+                        'id' => 'some/file/here',
                         'fileName' => 'sindelfingen.jpg',
                         'fileSize' => 2342,
                         'downloadCount' => 0,
                         'mimeType' => 'image/jpeg',
+                        'uri' => 'http://some/file/here',
                     )
                 ),
                 array(
-                    'path' => 'some/file/here',
+                    'id' => 'some/file/here',
                     'fileName' => 'sindelfingen.jpg',
                     'fileSize' => 2342,
                     'downloadCount' => 0,
                     'mimeType' => 'image/jpeg',
+                    'uri' => 'http://some/file/here',
                 )
             ),
             // ...
@@ -225,14 +227,14 @@ class BinaryFileTest extends BinaryBaseTest
      *      ),
      *      array(
      *          array(
-     *              'path' => 'some/file/here',
+     *              'id' => 'some/file/here',
      *              'fileName' => 'sindelfingen.jpg',
      *              'fileSize' => 2342,
      *              'downloadCount' => 0,
      *              'mimeType' => 'image/jpeg',
      *          ),
      *          new BinaryFileValue( array(
-     *              'path' => 'some/file/here',
+     *              'id' => 'some/file/here',
      *              'fileName' => 'sindelfingen.jpg',
      *              'fileSize' => 2342,
      *              'downloadCount' => 0,
@@ -254,7 +256,7 @@ class BinaryFileTest extends BinaryBaseTest
             ),
             array(
                 array(
-                    'path' => 'some/file/here',
+                    'id' => 'some/file/here',
                     'fileName' => 'sindelfingen.jpg',
                     'fileSize' => 2342,
                     'downloadCount' => 0,
@@ -262,7 +264,7 @@ class BinaryFileTest extends BinaryBaseTest
                 ),
                 new BinaryFileValue(
                     array(
-                        'path' => 'some/file/here',
+                        'id' => 'some/file/here',
                         'fileName' => 'sindelfingen.jpg',
                         'fileSize' => 2342,
                         'downloadCount' => 0,

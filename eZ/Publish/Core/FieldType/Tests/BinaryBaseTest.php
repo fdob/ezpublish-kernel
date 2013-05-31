@@ -107,7 +107,7 @@ abstract class BinaryBaseTest extends FieldTypeTest
                 'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
             ),
             array(
-                array( 'path' => '/foo/bar' ),
+                array( 'id' => '/foo/bar' ),
                 'eZ\\Publish\\Core\\Base\\Exceptions\\InvalidArgumentException',
             ),
         );
