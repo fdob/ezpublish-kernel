@@ -514,7 +514,7 @@ class Legacy implements IOHandlerInterface
     protected function getStoragePath( $spiBinaryFileId )
     {
         if ( $this->storageDirectory )
-            $spiBinaryFileId = $this->storageDirectory . DIRECTORY_SEPARATOR . $spiBinaryFileId;
+            $spiBinaryFileId = $this->storageDirectory . '/' . $spiBinaryFileId;
         return $spiBinaryFileId;
     }
 
