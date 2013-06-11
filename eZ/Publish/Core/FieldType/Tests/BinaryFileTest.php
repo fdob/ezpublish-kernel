@@ -201,6 +201,8 @@ class BinaryFileTest extends BinaryBaseTest
                 ),
                 array(
                     'id' => 'some/file/here',
+                    // Used for BC with 5.0 (EZP-20948)
+                    'path' => 'some/file/here',
                     'fileName' => 'sindelfingen.jpg',
                     'fileSize' => 2342,
                     'downloadCount' => 0,
@@ -208,7 +210,28 @@ class BinaryFileTest extends BinaryBaseTest
                     'uri' => 'http://some/file/here',
                 )
             ),
-            // ...
+            // BC with 5.0 (EZP-20948). Path can be used as input instead of ID.
+            array(
+                new BinaryFileValue(
+                    array(
+                        'path' => 'some/file/here',
+                        'fileName' => 'sindelfingen.jpg',
+                        'fileSize' => 2342,
+                        'downloadCount' => 0,
+                        'mimeType' => 'image/jpeg',
+                        'uri' => 'http://some/file/here',
+                    )
+                ),
+                array(
+                    'id' => 'some/file/here',
+                    'path' => 'some/file/here',
+                    'fileName' => 'sindelfingen.jpg',
+                    'fileSize' => 2342,
+                    'downloadCount' => 0,
+                    'mimeType' => 'image/jpeg',
+                    'uri' => 'http://some/file/here',
+                )
+            )
         );
     }
 
@@ -272,6 +295,25 @@ class BinaryFileTest extends BinaryBaseTest
                     )
                 )
             ),
+            // BC with 5.0 (EZP-20948). Path can be used as input instead of ID.
+            array(
+                array(
+                    'path' => 'some/file/here',
+                    'fileName' => 'sindelfingen.jpg',
+                    'fileSize' => 2342,
+                    'downloadCount' => 0,
+                    'mimeType' => 'image/jpeg',
+                ),
+                new BinaryFileValue(
+                    array(
+                        'id' => 'some/file/here',
+                        'fileName' => 'sindelfingen.jpg',
+                        'fileSize' => 2342,
+                        'downloadCount' => 0,
+                        'mimeType' => 'image/jpeg',
+                    )
+                )
+            )
             // @todo: Provide upload struct (via REST)!
         );
     }

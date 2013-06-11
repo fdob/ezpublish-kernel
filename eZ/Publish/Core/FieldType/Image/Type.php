@@ -314,6 +314,7 @@ class Type extends FieldType
 
         return array(
             'id' => $value->id,
+            'path' => $value->id,
             'alternativeText' => $value->alternativeText,
             'fileName' => $value->fileName,
             'fileSize' => $value->fileSize,
