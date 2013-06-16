@@ -9,7 +9,7 @@
 
 namespace eZ\Bundle\EzPublishLegacyBundle\SetupWizard;
 
-use Sensio\Bundle\DistributionBundle\Configurator\Configurator;
+use eZ\Bundle\EzPublishLegacyBundle\Configurator\Configurator;
 use eZ\Publish\Core\MVC\Symfony\ConfigDumperInterface;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Filesystem\Filesystem;
@@ -22,9 +22,9 @@ class ConfigurationDumper implements ConfigDumperInterface
     protected $fs;
 
     /**
-     * @var \Sensio\Bundle\DistributionBundle\Configurator\Configurator
+     * @var \eZ\Bundle\EzPublishLegacyBundle\Configurator\Configurator
      */
-    protected $sensioConfigurator;
+    protected $configurator;
 
     /**
      * Path to root dir (kernel.root_dir)
@@ -48,13 +48,13 @@ class ConfigurationDumper implements ConfigDumperInterface
      */
     protected $envs;
 
-    public function __construct( Filesystem $fs, array $envs, $rootDir, $cacheDir, Configurator $sensioConfigurator = null )
+    public function __construct( Filesystem $fs, array $envs, $rootDir, $cacheDir, Configurator $configurator )
     {
         $this->fs = $fs;
         $this->rootDir = $rootDir;
         $this->cacheDir = $cacheDir;
         $this->envs = array_fill_keys( $envs, true );
-        $this->sensioConfigurator = $sensioConfigurator;
+        $this->configurator = $configurator;
     }
 
     /**
@@ -105,16 +105,13 @@ class ConfigurationDumper implements ConfigDumperInterface
         }
 
         // Handling %secret%
-        if ( $this->sensioConfigurator !== null )
-        {
-            $this->sensioConfigurator->mergeParameters(
-                array(
-                    // Step #1 is SecretStep
-                    'secret' => $this->sensioConfigurator->getStep( 1 )->secret
-                )
-            );
-            $this->sensioConfigurator->write();
-        }
+        $this->configurator->mergeParameters(
+            array(
+                // Step #1 is SecretStep
+                'secret' => $this->configurator->getStep( 1 )->secret
+            )
+        );
+        $this->configurator->write();
 
         $this->clearCache();
     }

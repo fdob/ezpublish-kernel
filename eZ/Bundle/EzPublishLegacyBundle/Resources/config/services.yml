@@ -16,6 +16,8 @@ parameters:
     ezpublish_legacy.kernel_handler.cli.class: eZ\Publish\Core\MVC\Legacy\Kernel\CLIHandler
     ezpublish_legacy.kernel_handler.cli.options: {}
 
+    ezpublish_legacy.webconfigurator.class: eZ\Bundle\EzPublishLegacyBundle\Configurator\Configurator
+
     ezpublish_legacy.router.class: eZ\Bundle\EzPublishLegacyBundle\Routing\FallbackRouter
     ezpublish_legacy.url_generator.class: eZ\Bundle\EzPublishLegacyBundle\Routing\UrlGenerator
     ezpublish_legacy.siteaccess_mapper.class: eZ\Bundle\EzPublishLegacyBundle\LegacyMapper\SiteAccess
@@ -170,7 +172,12 @@ services:
             - %ezpublish_legacy.setup_wizard.configuration_dumper.environments%
             - %kernel.root_dir%
             - %kernel.cache_dir%
-            - @?sensio.distribution.webconfigurator
+            - @ezpublish_legacy.webconfigurator
+
+    ezpublish_legacy.webconfigurator:
+        class: %ezpublish_legacy.webconfigurator.class%
+        arguments:
+            - %kernel.root_dir%
 
     # Image alias generator using legacy
     ezpublish_legacy.fieldType.ezimage.variation_service:
